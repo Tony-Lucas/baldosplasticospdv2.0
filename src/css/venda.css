@@ -1,0 +1,19 @@
+
+
+.divMercadorias{
+    height: 40vh;
+    overflow-y: scroll;
+}
+
+.divMercadoria:hover{
+    background-color: #dfe6e9;
+    transition: 0.3s
+}
+
+.item-carrinho{
+    background-color: rgba(23, 87, 255, 10%)
+}
+
+.alturatable{
+    height: 10vh;
+}

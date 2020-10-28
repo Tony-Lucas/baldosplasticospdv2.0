@@ -1,0 +1,28 @@
+
+
+
+.link-menu::after{
+    content: '';
+    display: block;
+    width: 22px;
+    height: 5px;
+    background-color: #1143BF;
+    margin-top: 5px;
+}
+
+.sidebar{
+    border-radius: 0px 5px 5px 0px;
+}
+
+.sidebarlg-largura{
+    width: 10vw ;
+}
+
+.navegacao{
+    height: 85vh;
+}
+
+.sair{
+    height: 15vh;
+}
+

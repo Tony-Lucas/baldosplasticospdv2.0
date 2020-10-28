@@ -1,0 +1,42 @@
+
+
+@media (min-width: 576px) {
+    #formInput{
+        border: 1px solid #1757FF;
+        font-family: montserrat-regular;
+        width: 70vw;
+    }
+}
+
+
+@media (min-width: 768px) {
+    #formInput{
+        border: 1px solid #1757FF;
+        font-family: montserrat-regular;
+        width: 40vw;
+    }
+}
+
+
+@media (min-width: 992px) {
+    #formInput{
+        border: 1px solid #1757FF;
+        font-family: montserrat-regular;
+        width: 38vw;
+    }
+}
+
+@media (min-width: 1200px) {
+    #formInput{
+        border: 1px solid #1757FF;
+        font-family: montserrat-regular;
+        width: 20vw;
+    }
+}
+
+::placeholder{
+    color: #1757FF;
+    font-family: montserrat-regular;
+}
+
+

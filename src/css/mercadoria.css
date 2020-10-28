@@ -1,0 +1,44 @@
+
+.inputBusca{
+    border-radius: 5px 0px 0px 5px;
+}
+
+.btnBusca{
+    border-radius: 0px 5px 5px 0px !important;
+}
+
+#inputBusca{
+    color: #ffffff;
+}
+
+.alturatabela{
+    height: 60vh !important;
+}
+
+.animate-input{
+    animation: inputanimation 0.8s forwards;
+}
+
+@keyframes inputanimation{
+    0%{
+        width: 0vw;
+    }
+    100%{
+        width: 63vw;
+    }
+}
+
+.animate-notification{
+    animation: notificationasuccess 0.5s forwards;
+}
+
+@keyframes notificationasuccess{
+    0%{
+        left: 10vw;
+        opacity: 0;
+    }
+    100%{
+        left: 0vw;
+        opacity: 1;
+    }
+}
