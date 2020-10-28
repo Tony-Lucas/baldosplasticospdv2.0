@@ -8,6 +8,7 @@ import Mercadoria from './components/mercadoria/mercadoria';
 import { getMercadorias } from './Services';
 import Vendas from './components/venda/Venda';
 import Relatorio from './components/relatorio/Relatorio';
+import NavbarMobile from './template/navbarmobile'
 
 export default class App extends React.Component {
     constructor(props) {
@@ -34,8 +35,9 @@ export default class App extends React.Component {
             return (
                 <div className="container-fluid">
                     <div className="row">
-                        <Menu abreMenu={this.abreMenu} logout={this.logout} />
+                        <Menu   />
                         <MenuLg logout={this.logout} />
+                        <NavbarMobile abreMenu={this.abreMenu} logout={this.logout}/>
                         <Router>
                             <Switch>
                                 <Route exact path="/mercadorias"><Mercadoria getMercadorias={getMercadorias} /></Route>
