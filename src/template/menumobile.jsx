@@ -14,8 +14,8 @@ export default props =>
                     </div>
                 </div>
                 <div className="row sair">
-                    <div className="col d-flex flex-column justify-content-end">
-                        <button className="border-0 bg-primario-escuro rounded text-white p-2 mb-3" onClick={props.logout} >Sair</button>
+                    <div className="col mt-5">
+                        <button className="border-0 bg-primario-escuro rounded text-white p-2 mb-3 col" onClick={props.logout} >Sair</button>
                     </div>
                 </div>
             </div>
