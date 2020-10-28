@@ -262,14 +262,14 @@ export default class Venda extends React.Component {
         const listaNotas = document.getElementById("listaNotas");
         const detalheNota = document.getElementById("detalheVenda");
         listaNotas.classList.toggle("d-none")
-        detalheNota.classList.toggle("d-flex")
+        detalheNota.classList.toggle("d-none")
 
     }
 
     fechaDetalheNota() {
         const listaNotas = document.getElementById("listaNotas");
         const detalheNota = document.getElementById("detalheVenda");
-        detalheNota.classList.toggle("d-flex");
+        detalheNota.classList.toggle("d-none");
         listaNotas.classList.toggle("d-none")
     }
 
@@ -309,7 +309,7 @@ export default class Venda extends React.Component {
                         </div>
 
                         <div className="row">
-                            <div className="col col-11 centralizar">
+                            <div className="col-10 col-lg-11 centralizar">
                                 <div className="row">
                                     <div className="col-6 col-md-3 col-lg-2 col-lg-2 p-0 centralizar d-none d-lg-block" id="buscaElementos">
                                         <input type="date" className="form-control col-12" id="inputDataInicial"/>
@@ -331,8 +331,8 @@ export default class Venda extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row mt-4 ">
-                            <div className="col p-0 scroll-x alturatabela">
+                        <div className="row mt-4 mb-4">
+                            <div className="col-11 col-lg-12 col-md-12 p-0 scroll-x alturatabela centralizar">
                                 <table className="table col-11 centralizar regular ">
                                     <thead className="bg-primario text-white bold">
                                         <tr>
