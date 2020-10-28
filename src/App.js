@@ -35,9 +35,9 @@ export default class App extends React.Component {
             return (
                 <div className="container-fluid">
                     <div className="row">
-                        <Menu   />
+                        <Menu  logout={this.logout} />
                         <MenuLg logout={this.logout} />
-                        <NavbarMobile abreMenu={this.abreMenu} logout={this.logout}/>
+                        <NavbarMobile   abreMenu={this.abreMenu} />
                         <Router>
                             <Switch>
                                 <Route exact path="/mercadorias"><Mercadoria getMercadorias={getMercadorias} /></Route>

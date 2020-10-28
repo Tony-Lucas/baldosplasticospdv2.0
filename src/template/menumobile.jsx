@@ -3,9 +3,9 @@ import '../css/menu.css';
 
 export default props =>
 
-    <div className="col-12 col-sm-12 d-md-none d-lg-none">
+    <div className="col-12 col-sm-12 d-none d-md-none d-lg-none" id="sidebar-mobile">
         <div className="row">
-            <div className="col-7 d-flex flex-column justify-content-center alturamax bg-primario sidebar position-absolute d-none d-md-none d-lg-none slideright porcima" id="sidebar-mobile">
+            <div className="col-7 d-flex flex-column justify-content-center alturamax bg-primario sidebar position-absolute slideright porcima" >
                 <div className="row ">
                     <div className="col d-flex flex-column justify-content-center">
                         <a href="/mercadorias" className="bold text-white text-decoration-none link-menu mb-5 ml-4">Mercadorias</a>
