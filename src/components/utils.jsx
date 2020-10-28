@@ -12,8 +12,12 @@ export const login = async(e) => {
             body: JSON.stringify({usuario:usuario.value,senha:senha.value})
         });
         const json = await res.json();
-        sessionStorage.setItem('token',json.token)
-        window.location.reload()
+        if(json.success){
+            sessionStorage.setItem('token',json.token)
+            window.location.reload()
+        }else{
+            console.log("Deu merda")
+        }
     }else{
         console.log('falta alguma coisa')
     }
