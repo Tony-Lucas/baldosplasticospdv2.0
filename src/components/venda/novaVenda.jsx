@@ -10,7 +10,7 @@ export default props =>
         </div>
         <div className="row">
             <div className="col col-lg-3 col-md-5 centralizar mt-4">
-                <input type="text" className="col borda-primaria p-2 rounded texto-primario" placeholder="Nome do cliente" id="cliente"/>
+                <input type="text" className="col borda-primaria p-2 rounded texto-primario" placeholder="Nome do cliente" id="cliente" />
             </div>
         </div>
         <div className="row">
@@ -57,7 +57,7 @@ export default props =>
             </div>
         </div>
         <div className="row">
-            <div className="col col-lg-6 centralizar mt-5 regular">
+            <div className="col-11 col-md-8 col-lg-6 centralizar mt-5 regular scroll-x">
                 <h3 className="bold text-center">Carrinho</h3>
                 <table className="table mt-4 shadow">
                     <thead>
@@ -85,6 +85,11 @@ export default props =>
                         })}
                     </tbody>
                 </table>
+
+            </div>
+        </div>
+        <div className="row">
+            <div className="col-11 col-md-8 col-lg-6 centralizar">
                 <h3 className="bold text-right mt-5 mb-4">Subtotal: {parseFloat(props.subtotal).toFixed(2)}</h3>
                 <button className="btn btn-danger float-left mt-4" onClick={props.toggleNovaNota}>Cancelar</button>
                 <button className="btn btn-success float-right mt-4" onClick={props.finalizaNota}>Finalizar</button>
