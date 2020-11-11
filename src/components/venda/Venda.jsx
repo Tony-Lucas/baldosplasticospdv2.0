@@ -4,6 +4,7 @@ import { formataData, formataValorBr ,verificaNumeroInt} from '../utils'
 import Logo from '../../img/Sem Título-1.png'
 import '../../css/venda.css'
 import DetalheVenda from './detalheVenda';
+import LoadingSvg from '../../svg/oval.svg';
 
 export default class Venda extends React.Component {
     constructor(props) {
@@ -142,6 +143,12 @@ export default class Venda extends React.Component {
     }
 
     async geraPdf(e) {
+        let btnPdf = e.target;
+        btnPdf.textContent = ""
+        let imgTag = document.createElement("img");
+        imgTag.setAttribute("src", LoadingSvg)
+        imgTag.setAttribute("width", "24")
+        btnPdf.appendChild(imgTag)
         const resultNotas = await fetch(`https://bdpapiserver.com/notas/${e.target.getAttribute('idmercadoria')}/${sessionStorage.getItem("token")}`);
         const jsonNotas = await resultNotas.json();
         const resultVendas = await fetch(`https://bdpapiserver.com/vendas/${jsonNotas.notas.id}/${sessionStorage.getItem("token")}`);
@@ -213,6 +220,8 @@ export default class Venda extends React.Component {
         if(jsonPdf.success){
             setTimeout(() => {
                 window.open("https://bdpapiserver.com/pdfnota.pdf")
+                btnPdf.removeChild(btnPdf.childNodes[0]);
+                btnPdf.textContent = "PDF"
             },3000)
         }    
           
