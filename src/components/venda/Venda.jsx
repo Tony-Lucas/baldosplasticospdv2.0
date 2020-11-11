@@ -171,7 +171,6 @@ export default class Venda extends React.Component {
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.nome}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.precoVenda.replace('.', ',')}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonVendas.vendas[i].quantidade}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${(parseFloat(jsonMercadoria.mercadoria.precoVenda) - parseFloat(jsonVendas[i].desconto))}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${((parseFloat(jsonMercadoria.mercadoria.precoVenda) * jsonVendas.vendas[i].quantidade) - jsonVendas.vendas[i].desconto).toFixed(2).toString().replace(".", ",")}</td>
                 
                 </tr> `
@@ -185,7 +184,8 @@ export default class Venda extends React.Component {
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.nome}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.precoVenda.replace('.', ',')}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonVendas.vendas[i].quantidade}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${((parseFloat(jsonVendas.vendas[i].desconto).toFixed(2) * jsonVendas.vendas[i].quantidade)).toFixed(2).toString().replace(".", ",")}</td>
+                    <td style="padding:5px;text-align:center;border:1px solid">${(parseFloat(jsonMercadoria.mercadoria.precoVenda) - parseFloat(jsonVendas[i].desconto)).toFixed(2)}</td>
+                    <td style="padding:5px;text-align:center;border:1px solid">${((parseFloat(jsonVendas.vendas[i].desconto).toFixed(2) - parseFloat(jsonMercadoria.mercadoria.precoVenda).toFixed(2) * parseInt(jsonVendas.vendas[i].quantidade)).toFixed(2).toString().replace(".", ","))}</td>
                 </tr> `
                 corpo += tr;
             }
