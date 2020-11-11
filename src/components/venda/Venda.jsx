@@ -118,8 +118,10 @@ export default class Venda extends React.Component {
                         body: JSON.stringify({ id_mercadoria: item.id, quantidade: item.quantidade, notaId: json.nota.id, desconto: item.desconto, token: sessionStorage.getItem("token") })
                     });
                     const jsonVenda = await resultVenda.json();
-                    window.location.reload()
                 })
+                
+                window.location.reload()
+                
             }
         }
     }
@@ -144,6 +146,12 @@ export default class Venda extends React.Component {
         const jsonNotas = await resultNotas.json();
         const resultVendas = await fetch(`https://bdpapiserver.com/vendas/${jsonNotas.notas.id}/${sessionStorage.getItem("token")}`);
         const jsonVendas = await resultVendas.json();
+        let mercadorias = [];
+        for(let i = 0 ; i < jsonVendas.vendas.length ; i++){
+            const result = await fetch (`https://bdpapiserver.com/mercadoria/${jsonVendas.vendas[i].id_mercadoria}/${sessionStorage.getItem("token")}`)
+            const json = await result.json();
+            mercadorias.push(json.mercadoria)
+        }
         let dia = jsonNotas.notas.data.slice(8, 10);
         let mes = jsonNotas.notas.data.slice(5, 7);
         let ano = jsonNotas.notas.data.slice(0, 4);
@@ -163,52 +171,51 @@ export default class Venda extends React.Component {
         <thead>
         <tbody>`
         for (let i = 0; i < jsonVendas.vendas.length; i++) {
-            if (jsonVendas.vendas[i].desconto < 1) {
-                const resultMercadoria = await fetch("https://bdpapiserver.com/mercadoria/" + jsonVendas.vendas[i].id_mercadoria + "/" + sessionStorage.getItem('token'));
-                const jsonMercadoria = await resultMercadoria.json();
-                let tr = `
-                <tr>
-                    <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.nome}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.precoVenda.replace('.', ',')}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${jsonVendas.vendas[i].quantidade}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${((parseFloat(jsonMercadoria.mercadoria.precoVenda) * jsonVendas.vendas[i].quantidade) - jsonVendas.vendas[i].desconto).toFixed(2).toString().replace(".", ",")}</td>
+            if(parseFloat(jsonVendas.vendas[i].desconto) > 0){
+                const desconto = (parseFloat(mercadorias[i].precoVenda).toFixed(2) - parseFloat(jsonVendas.vendas[i].desconto).toFixed(2)).toFixed(2)
+                const linha = `
+                    <tr>
+                        <td style="padding: 10px;border: 1px solid black">${mercadorias[i].nome}</td>
+                        <td style="padding: 10px;border: 1px solid black">${mercadorias[i].precoVenda.toString().replace('.',',')}</td>
+                        <td style="padding: 10px;border: 1px solid black">${jsonVendas.vendas[i].quantidade}</td>
+                        <td style="padding: 10px;border: 1px solid black">${desconto.toString().replace(".",',')}</td>
+                        <td style="padding: 10px;border: 1px solid black">${((parseFloat(mercadorias[i].precoVenda).toFixed(2) - desconto) * jsonVendas.vendas[i].quantidade).toFixed(2).toString().replace(".",',')}</td>
+                    </tr>
                 
-                </tr> `
-                corpo += tr;
-            } else {
-                const resultMercadoria = await fetch("https://bdpapiserver.com/mercadoria/" + jsonVendas.vendas[i].id_mercadoria + "/" + sessionStorage.getItem('token'));
-                const jsonMercadoria = await resultMercadoria.json();
-                let tr = `
+                `
+                corpo += linha
+                console.log(corpo)  
+            }else{
+                const linha = `
+                    <tr>
+                        <td style="padding: 10px;border: 1px solid black">${mercadorias[i].nome}</td>
+                        <td style="padding: 10px;border: 1px solid black">${mercadorias[i].precoVenda.toString().replace('.',',')}</td>
+                        <td style="padding: 10px;border: 1px solid black">${jsonVendas.vendas[i].quantidade}</td>
+                        <td style="padding: 10px;border: 1px solid black">${jsonVendas.vendas[i].desconto.toFixed(2).replace(".",",")}</td>
+                        <td style="padding: 10px;border: 1px solid black">${(parseFloat(mercadorias[i].precoVenda).toFixed(2) * jsonVendas.vendas[i].quantidade).toFixed(2).toString().replace(".",",")}</td>
+                    </tr>
                 
-                <tr>
-                    <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.nome}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.precoVenda.replace('.', ',')}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${jsonVendas.vendas[i].quantidade}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${(parseFloat(jsonMercadoria.mercadoria.precoVenda) - parseFloat(jsonVendas[i].desconto)).toFixed(2)}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${((parseFloat(jsonVendas.vendas[i].desconto).toFixed(2) - parseFloat(jsonMercadoria.mercadoria.precoVenda).toFixed(2) * parseInt(jsonVendas.vendas[i].quantidade)).toFixed(2).toString().replace(".", ","))}</td>
-                </tr> `
-                corpo += tr;
+                `
+                corpo += linha
             }
         }
-
         corpo += `
             </tbody>
             </table>
             <h5 style="margin-top:30px;text-align:center">Subtotal: ${parseFloat(jsonNotas.notas.total).toFixed(2).toString().replace(".", ",")}</h5>
             `
-        const result = fetch("https://bdpapiserver.com/notas/pdf", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token: sessionStorage.getItem('token'), corpo: corpo })
-        }).then(result => {
-            return result.json();
-        }).then(result => {
-            if (result.success) {
-                setTimeout(() => {
-                    window.open("https://bdpapiserver.com/pdfnota.pdf")
-                }, 3000)
-            }
-        })
+        const resultPdf = await fetch(`https://bdpapiserver.com/notas/pdf`,{
+            method: "POST",
+            headers: { "Content-Type": "application/json"},
+            body: JSON.stringify({token:sessionStorage.getItem("token"),corpo:corpo})
+        });
+        const jsonPdf = await resultPdf.json();
+        if(jsonPdf.success){
+            setTimeout(() => {
+                window.open("https://bdpapiserver.com/pdfnota.pdf")
+            },3000)
+        }    
+          
     }
 
     calculaDesconto(e) {
