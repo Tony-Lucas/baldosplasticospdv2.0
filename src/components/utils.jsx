@@ -14,7 +14,7 @@ export const login = async(e) => {
         const json = await res.json();
         if(json.success){
             sessionStorage.setItem('token',json.token)
-            window.location.href = "https://baldosplasticospdv2.herokuapp.com/vendas";
+            window.location.reload();
         }else{
             console.log("Deu merda")
         }

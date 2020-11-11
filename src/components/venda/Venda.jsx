@@ -118,7 +118,7 @@ export default class Venda extends React.Component {
                         body: JSON.stringify({ id_mercadoria: item.id, quantidade: item.quantidade, notaId: json.nota.id, desconto: item.desconto, token: sessionStorage.getItem("token") })
                     });
                     const jsonVenda = await resultVenda.json();
-                    console.log(jsonVenda)
+                    window.location.reload()
                 })
             }
         }
@@ -171,8 +171,9 @@ export default class Venda extends React.Component {
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.nome}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.precoVenda.replace('.', ',')}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonVendas.vendas[i].quantidade}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${parseFloat(jsonVendas.vendas[i].desconto).toFixed(2).toString().replace(".", ",")}</td>
+                    <td style="padding:5px;text-align:center;border:1px solid">${(parseFloat(jsonMercadoria.mercadoria.precoVenda) - parseFloat(jsonVendas[i].desconto))}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${((parseFloat(jsonMercadoria.mercadoria.precoVenda) * jsonVendas.vendas[i].quantidade) - jsonVendas.vendas[i].desconto).toFixed(2).toString().replace(".", ",")}</td>
+                
                 </tr> `
                 corpo += tr;
             } else {
@@ -184,7 +185,6 @@ export default class Venda extends React.Component {
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.nome}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonMercadoria.mercadoria.precoVenda.replace('.', ',')}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${jsonVendas.vendas[i].quantidade}</td>
-                    <td style="padding:5px;text-align:center;border:1px solid">${parseFloat(jsonVendas.vendas[i].desconto).toFixed(2).toString().replace(".", ",")}</td>
                     <td style="padding:5px;text-align:center;border:1px solid">${((parseFloat(jsonVendas.vendas[i].desconto).toFixed(2) * jsonVendas.vendas[i].quantidade)).toFixed(2).toString().replace(".", ",")}</td>
                 </tr> `
                 corpo += tr;
